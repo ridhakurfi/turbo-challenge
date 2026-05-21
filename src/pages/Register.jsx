@@ -9,7 +9,6 @@ function Register() {
         e.preventDefault()
         const form = e.target
         const payload = {
-            id:Date.now(),
             username: form.username.value,
             email: form.email.value,
             password: form.password.value,
