@@ -28,7 +28,7 @@ function Add() {
       await createTasks(form);
       console.log(form);
       setTimeout(() => {
-                navigate("/");
+                navigate("/list");
             }, 1000);
       setForm({
         title: "",
