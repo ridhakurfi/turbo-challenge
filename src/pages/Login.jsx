@@ -19,7 +19,7 @@ function Login() {
             console.log(response);
             localStorage.setItem("access_token", response.token)
             setTimeout(() => {
-                navigate("/register");
+                navigate("/list");
             }, 1000);
         } catch (err) {
         }

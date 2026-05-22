@@ -1,38 +1,40 @@
+import { useEffect, useState } from "react";
+import { fetchTasks } from "../api/task"
+import { Link, useNavigate } from "react-router-dom";
 import '../styles/list.css'
 
 function List() {
-  const todos = [
-    {
-      id: 1,
-      title: "Gym workout",
-      description: "Complete cardio session",
-      dueDate: "2026-05-25",
-      priority: "High",
-      completed: false,
-    },
-    {
-      id: 2,
-      title: "Study React",
-      description: "Learn react-router-dom",
-      dueDate: "2026-05-26",
-      priority: "Medium",
-      completed: true,
-    },
-    {
-      id: 3,
-      title: "Buy groceries",
-      description: "Milk, eggs, vegetables",
-      dueDate: "2026-05-27",
-      priority: "Low",
-      completed: false,
-    },
-  ];
+  const [todos, setTodos] = useState([]);
+  const navigate = useNavigate();
+  useEffect(() => {
+    async function getData() {
+      try {
+        const data = await fetchTasks();
+        setTodos(data);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    getData();
+  }, []);
+  function handleLogout() {
+    localStorage.removeItem("access_token");
+    navigate("/");
+  }
 
   return (
     <div className="table-page">
       <div className="table-container">
         <h1>TODO LIST</h1>
-
+<Link to="/add" className="add-btn">
+            + Add Task
+          </Link>
+          <button
+              onClick={handleLogout}
+              className="logout-btn"
+            >
+              Logout
+            </button>
         <table>
           <thead>
             <tr>

@@ -6,13 +6,10 @@ export async function createUser(payload) {
     },
     body: JSON.stringify(payload),
   });
-
   const data = await res.json();
-
   if (!res.ok) {
     throw new Error(data.message || "Failed to create");
   }
-
   return data;
 }
 
@@ -24,13 +21,10 @@ export async function loginUser(payload) {
     },
     body: JSON.stringify(payload),
   });
-
   const data = await res.json();
-
   if (!res.ok) {
     throw new Error(data.message || "Failed to login");
   }
-
   return data;
 }
 
@@ -43,12 +37,9 @@ export async function memberPage() {
       Authorization: `Bearer ${token}`,
     },
   });
-
   const data = await res.json();
-
   if (!res.ok) {
     throw new Error(data.message || "Not a member");
   }
-
   return data;
 }

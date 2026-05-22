@@ -1,7 +1,10 @@
 import { useState } from "react";
-import '../styles/add.css'
+import { createTasks } from "../api/task";
+import "../styles/add.css";
+import { useNavigate } from "react-router-dom";
 
 function Add() {
+  const navigate = useNavigate()
   const [form, setForm] = useState({
     title: "",
     description: "",
@@ -19,11 +22,24 @@ function Add() {
     });
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-
-    console.log(form);
-
+    try {
+      await createTasks(form);
+      console.log(form);
+      setTimeout(() => {
+                navigate("/");
+            }, 1000);
+      setForm({
+        title: "",
+        description: "",
+        dueDate: "",
+        priority: "medium",
+        completed: false,
+      });
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   return (
@@ -71,10 +87,13 @@ function Add() {
               checked={form.completed}
               onChange={handleChange}
             />
+
             Completed
           </label>
 
-          <button type="submit">ADD TASK</button>
+          <button type="submit">
+            ADD TASK
+          </button>
         </form>
       </div>
     </div>
